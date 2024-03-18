@@ -7,7 +7,6 @@ import React from 'react'
 const App = () => {
   return (
     <div>
-      Hola, Prueba 1
     </div>
   )
 }

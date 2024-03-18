@@ -10,10 +10,26 @@
     display: flex;
     justify-content: center;
     align-items: center; 
+    flex-direction: column;
+    width: 954px;
+    height: 367px;
+    text-align: center;
 }
 
 .title{
-    font-size: 70px;
+    font-size: 100px;
     font-family: 'Lexend Zetta';
     font-weight: 600;
+    margin: 0;
+}
+
+.description{
+    font-family: 'Inter';
+    text-align: center;
+    font-size: 35px;
+}
+
+.main-btns{
+    display: flex;
+    
 }
