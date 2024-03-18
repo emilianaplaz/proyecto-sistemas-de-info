@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 100vw;
+    height: 100vh;
+}
+
+.main-title-container{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.title{
+    font-size: 70px;
+    font-family: 'Lexend Zetta';
+    font-weight: 600;
+}
