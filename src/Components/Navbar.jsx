@@ -4,8 +4,8 @@ import './Navbar.css';
 
 const Navbar = () => {
   return (
-    <nav>
-      <ul>
+    <nav className='navbar'>
+      <ul className='navbar-list'>
         <li><a href="#">Inicio</a></li>
         <li><a href="#">Agrupaciones</a></li>
         <li><a href="#">Donaciones</a></li>

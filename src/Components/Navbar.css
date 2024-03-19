@@ -1,15 +1,16 @@
 .navbar {
     text-align: center; 
-  }
+}
   
-  .navbar-list {
-    list-style-type: none; /* Elimina las viñetas */
-    display: flex; /* Muestra los elementos en una sola línea */
-    justify-content: center; /* Centra los elementos horizontalmente */
+.navbar-list {
+    list-style-type: none; 
+    display: flex; 
+    justify-content: center; 
     padding: 0; 
-  }
+
+}
   
-  .navbar-list li {
+.navbar-list li {
     margin: 0 10px; 
-  }
+}
   
