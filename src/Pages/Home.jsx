@@ -9,7 +9,7 @@ const Home = () => {
             <h1 className="title">MetroGroup</h1>
             <p className='description'>Descubre el mundo de las agrupaciones en la Unimet y únete a la que más te apasione. Hay opciones para todos los intereses. ¡No te pierdas la oportunidad de formar parte de algo increíble!</p>
             <div className="home-btns">
-              <button className="quienes-somos-btn">Quienes somos?</button>
+              <button className="quienes-somos-btn">¿Quiénes somos?</button>
               <button className="descubre-mas-btn">Descubre más</button>
             </div>
           </div>

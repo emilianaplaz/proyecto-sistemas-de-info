@@ -1,0 +1,15 @@
+.navbar {
+    text-align: center; 
+  }
+  
+  .navbar-list {
+    list-style-type: none; /* Elimina las viñetas */
+    display: flex; /* Muestra los elementos en una sola línea */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    padding: 0; 
+  }
+  
+  .navbar-list li {
+    margin: 0 10px; 
+  }
+  
