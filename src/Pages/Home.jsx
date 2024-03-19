@@ -17,6 +17,10 @@ const Home = () => {
   
         <div className="scnd-homepage-container" >
           <h2 className="second-description"> Descubre tu pasión y marca la diferencia en nuestra comunidad universitaria. Conoce más sobre las agrupaciones estudiantiles AQUÍ</h2>
+          <div className="descubre-mas-container">
+            <p className="descubre-mas-desc">Regístrate ahora y forma parte de una agrupación!</p>
+            <button className="registrarse-btn">Registrarse</button>
+          </div>
         </div>
       </div>
     );

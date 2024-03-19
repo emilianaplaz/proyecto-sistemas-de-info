@@ -37,7 +37,8 @@
 /* botones */
 
 .quienes-somos-btn,
-.descubre-mas-btn{
+.descubre-mas-btn,
+.registrarse-btn{
     width: 300px;
     height: 66px;
     border-radius: 50px;
@@ -48,7 +49,8 @@
 
 }
 
-.quienes-somos-btn{
+.quienes-somos-btn,
+.registrarse-btn{
     background-color: #FD8204;
 }
 
@@ -58,7 +60,8 @@
 }
 
 .quienes-somos-btn:hover,
-.descubre-mas-btn:hover{
+.descubre-mas-btn:hover,
+.registrarse-btn:hover{
     transform: scale(1.05);
     transition: 0.5s;
     border: solid 2px #FD8204;
@@ -69,5 +72,16 @@
 
 .scnd-homepage-container{
     margin: 300px;
-    height: 1000px;    
+    height: 1000px;
+    text-align: center;
+    font-family: 'Inter';   
+    font-weight: bold;
+    font-size: 28px; 
+}
+
+.descubre-mas-container{
+    display: flex;
+    flex-direction: column;
+    width: 523px;
+    height: 108px;
 }
