@@ -4,13 +4,11 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import React from 'react'
 import Navbar from './Components/Navbar'
+import { AppRouter } from './Router/AppRouter'
 
-const App = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+
+function App(){
+  return <AppRouter />
 }
 
 export default App
