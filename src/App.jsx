@@ -3,13 +3,12 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import React from 'react'
+import Navbar from './Components/Navbar'
+import { AppRouter } from './Router/AppRouter'
 
-const App = () => {
-  return (
-    <div>
-      Hola, Prueba 1
-    </div>
-  )
+
+function App(){
+  return <AppRouter />
 }
 
 export default App
