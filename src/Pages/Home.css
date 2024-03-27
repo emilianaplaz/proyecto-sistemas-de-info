@@ -24,6 +24,7 @@
     width: 954px;
     height: 367px;
     text-align: center;
+    color: white;
 }
 
 .title{
@@ -37,6 +38,7 @@
     font-family: 'Inter';
     text-align: center;
     font-size: 35px;
+    
 }
 
 .home-btns{
@@ -55,6 +57,7 @@
     font-family: 'Inter';
     font-size: 25px;
     font-weight: bold;
+    color: white;
 
 }
 
@@ -80,17 +83,37 @@
 /* PAGINA DOS */
 
 .scnd-homepage-container{
+    background-image: url('https://talcualdigital.com/wp-content/uploads/2019/11/Unimet-960x640.jpg');
+    background-size: cover;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+
     margin: 300px;
     height: 1000px;
     text-align: center;
     font-family: 'Inter';   
     font-weight: bold;
     font-size: 28px; 
+    color: white;
 }
 
 .descubre-mas-container{
     display: flex;
-    flex-direction: column;
+    align-items: center;
     width: 523px;
     height: 108px;
+    margin-top: 100px;
 }
+
+.text-btn-container {
+    margin-left: 20px; 
+  }
+
+.circular-image {
+    border-radius: 50%;
+    width: 400px; 
+    height: 400px; 
+    object-fit: cover;
+  }
+  
