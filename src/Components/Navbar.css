@@ -1,0 +1,22 @@
+.navbar {
+    text-align: center;
+}
+
+.navbar-list {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.navbar-list li {
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+.navbar-list a {
+    color: white; 
+    text-decoration: none; 
+    letter-spacing: 2px; 
+}
+  
