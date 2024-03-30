@@ -15,14 +15,13 @@ export function PrivateRoute({ children }) {
       } else {
         setUser(null);
         setTimeout(() => {
-          // Redirect the user to "/" after 5 seconds
           window.location.href = "/";
         }, 500);
       }
       setIsLoading(false);
     });
     return () => unsubscribe();
-  }, []); // The empty array makes the effect run only once
+  }, []); 
 
   if (isLoading) {
     return <h2>Loading...</h2>;

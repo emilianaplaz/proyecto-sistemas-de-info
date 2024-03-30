@@ -12,15 +12,16 @@ const Account = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [currentUserEmail, setCurrentUserEmail] = useState("");
   const [usuario, setusuario] = useState(null);
-
   const [usernombre, setusernombre] = useState("");
   const [userapellido, setuserapellido] = useState("");
   const [usertelefono, setusertelefono] = useState("");
-
   const [Usertipo, setUsertipo] = useState(null);
   const [userafiliaciones, setuserafiliaciones] = useState([]);
-
   const [isEditing, setIsEditing] = useState(false);
+  
+  const [isFetching, setIsFetching] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [updateMessage, setUpdateMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -60,7 +61,7 @@ const Account = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      if (user) { 
+      if (user) {
         const userData = await findUserByEmail(user.email);
         setusuario(userData);
         setusernombre(userData.nombre);
@@ -69,13 +70,18 @@ const Account = () => {
         setUsertipo(userData.tipo);
         setuserafiliaciones(userData.afiliaciones);
         setCurrentUser(user);
-        console.log(user)
-        setCurrentUserEmail(currentUser.email);
+        setCurrentUserEmail(user.email);
+        setIsFetching(false);
       } else {
         setCurrentUser(null);
+        setIsFetching(false);
       }
     });
   }, []);
+
+  if (isFetching) {
+    return <h2>Loading...</h2>;
+  }
 
   return (
     <div>
@@ -88,8 +94,7 @@ const Account = () => {
             {isEditing ? (
               <input type="text" value={usernombre} onChange={(e) => setusernombre(e.target.value)} />
             ) : (
-              <span>{usernombre}</span>
-            )}
+              <span>{usernombre}</span>)}
           </div>
           <div className="apellido">
             <strong>Apellido:</strong>
@@ -100,7 +105,7 @@ const Account = () => {
           </div>
           <div className="correo">
             <strong>Correo:</strong>
-              {currentUserEmail} 
+            {currentUserEmail && currentUserEmail} 
           </div>
           <div className="teléfono">
             <strong>Telefono:</strong>

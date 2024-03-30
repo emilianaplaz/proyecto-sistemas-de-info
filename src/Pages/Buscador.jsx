@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ArrayAgrupaciones } from "../../firebase";
+import './Buscador.css'
 
 const SearchBar = ({ searchTerm, setSearchTerm }) => {
   return (
-    <div>
+    <div id="Buscador">
       <input
+        id="Text-buscador"
         type="text"
         value={searchTerm}
         onChange={(event) => {
@@ -39,35 +41,71 @@ const FilterButton = ({ selectedFilters, setSelectedFilters, setSearchTerm, show
   };
 
   return (
+    
     <div>
-      <button onClick={toggleFilter}>
-        {selectedFilters.length > 0 &&
-          `Categorías: ${selectedFilters.join(", ")}`}
-        {selectedFilters.length === 0 && "Filtro"}
+      
+      <button id="FilterButton" onClick={toggleFilter}>
+       Filtro
       </button>
-      {isOpen && (
-        <>
-          <h1>Disponibilidad:</h1>
-          <button onClick={() => setCategoryFilter("disponible")}>
-            Disponible
-          </button>
-          <button onClick={() => setCategoryFilter("no disponible")}>
-            No disponible
-          </button>
-          <h1>Categorías:</h1>
-          <button onClick={() => setCategoryFilter("Artes")}>Artes</button>
-          <button onClick={() => setCategoryFilter("Politica")}>
-            Politica
-          </button>
-          <button onClick={() => setCategoryFilter("Lucha")}>Lucha</button>
-          <button onClick={resetFilter}>Quitar filtros</button>
-        </>
-      )}
+      <div id="Zona-filtro" style={{display: isOpen ? 'block' : 'none'}}>
+      
+</div>
+<div id="x" style={{display: isOpen ? 'block' : 'none'}}>
+  <button className="boton-x"onClick={toggleFilter}>X</button>
+  </div>
+<div style={{display: isOpen ? 'block' : 'none'}}>
+  
+  <div id="mostrarcat">Filtros: {selectedFilters.join(', ')}</div>
+<div id="filtrarpor">
+      Filtrar por:
+      </div>
+<div id="Cuadro-categ">
+        Categorías
+        </div>
+        <div id="Ciencias">
+        <button className="buttonfilt" onClick={() => setCategoryFilter("Ciencias")}>
+          Ciencias
+        </button>
+        </div>
+        <div id="Humanidades">
+        <button className="buttonfilt" onClick={() => setCategoryFilter("Humanidades")}>Humanidades</button>
+        </div>
+        <div id="Politica">
+        <button className="buttonfilt" onClick={() => setCategoryFilter("Politica")}>
+          Politica
+        </button>
+        </div>
+        <div id ="Arte">
+        <button className="buttonfilt" onClick={() => setCategoryFilter("Artes")}>Artes</button>
+        </div>
+        <div id ="cuadro-disponible">
+        Disponibilidad
+        </div>
+        <div id="disponible">
+        <button className="buttonfilt" onClick={() => setCategoryFilter("disponible")}>
+          Disponible
+        </button>
+        </div>
+        <div id="noDisponible">
+        <button className="buttonfilt" onClick={() => setCategoryFilter("no disponible")}>
+          No disponible
+        </button>
+        </div>
+        <div id="quitar-filtros">
+        <button className="buttonfilt" onClick={resetFilter}>Quitar filtros</button>
+        </div>
+       
+        <div id ="linea1"></div>
+        <div id ="linea2"></div>
+        <div id ="linea3"></div>
+        <div id ="linea4"></div>
+    </div>
     </div>
   );
 };
 
 const Buscaragrup = () => {
+  
   const [agrupaciones, setAgrupaciones] = useState([]);
   const [initialAgrupaciones, setInitialAgrupaciones] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -82,12 +120,20 @@ const Buscaragrup = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await ArrayAgrupaciones();
+      setInitialAgrupaciones(data);
       setAgrupaciones(data);
-      setInitialAgrupaciones(data); 
     };
 
     fetchData();
+
+    const timer = setTimeout(() => {
+      setAgrupaciones(initialAgrupaciones);
+    }, 3000);
+
+
+    return () => clearTimeout(timer);
   }, []);
+
 
   const filtraragrupa = initialAgrupaciones.filter((agrupacion) => {
     const matchedCategory =
@@ -101,12 +147,13 @@ const Buscaragrup = () => {
     );
   });
 
- 
+  
   useEffect(() => {
     setSearchTerm("");
     setSelectedFilters([]);
   }, []);
-
+ 
+  
   return (
     <div>
       <SearchBar
@@ -120,16 +167,23 @@ const Buscaragrup = () => {
         setSearchTerm={setSearchTerm}
         showFilters={showFilters}
         setShowFilters={setShowFilters}
-        
       />
-      <div>
-        {filtraragrupa.map((agrupacion) => (
-          <a key={agrupacion.nombre}href={`/agrupacion/` + agrupacion.nombre}>
-            <img src={agrupacion.imageUrl} alt={agrupacion.nombre} />
-            <h2>{agrupacion.nombre}</h2>
-          </a>
+      <div className="agrupacion-grid">
+        {filtraragrupa.map((agrupacion, index) => (
+          <div key={agrupacion.nombre} className="agrupacion-col">
+            <div className="cuadrito">
+            <a href={`/agrupacion/` + agrupacion.nombre}>
+              <img src={agrupacion.imageUrl} alt={agrupacion.nombre} />
+              <div id="nombreagrup">
+              <h2>{agrupacion.nombre}</h2>
+              </div>
+            </a>
+            </div>
+            {index % 2 === 1 && <div className="agrupacion-separator"></div>}
+            
+          </div>
         ))}
-     </div>
+      </div>
     </div>
   );
 };

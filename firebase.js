@@ -1,11 +1,12 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
+import { getFirestore, query, where, getDocs, collection, addDoc, updateDoc, getDoc, doc } from 'firebase/firestore';
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, doc } from "firebase/firestore";
-import { getStorage, ref } from "firebase/storage";
-import { collection, getDocs, addDoc, updateDoc, query,where} from "firebase/firestore";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getDownloadURL } from "firebase/storage";
+import { getStorage,ref } from "firebase/storage";
+
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,7 +23,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 export const auth = getAuth(app);
@@ -30,36 +30,36 @@ export const storage = getStorage(app);
 
 export const googleProvider = new GoogleAuthProvider();
 
-export async function ArrayAgrupaciones() {
-  let AgrupacionesData = [];
-  try {
-  
-    const querySnapshot = await getDocs(collection(db, "Agrupaciones"));
-    querySnapshot.forEach(async (doc) => {
-      const imageRef = ref(storage, `AgrupacionesImages/${doc.data().imagen}`);
-      
-      const imageUrl = await getDownloadURL(imageRef);
 
-      AgrupacionesData.push({
-        nombre: doc.data().nombre,
-        calificación: doc.data().calificación.map((id) => parseInt(id)),
-        categorias: doc.data().categorias,
-        contacto: doc.data().contacto,
-        creacion: doc.data().creacion,
-        encargado: doc.data().encargado,
-        visión: doc.data().visión,
-        facultad: doc.data().facultad,
-        mision: doc.data().mision,
-        integrantes: doc.data().integrantes,
-        imageUrl: imageUrl
+export async function ArrayAgrupaciones() {
+    let AgrupacionesData = [];
+  
+    try {
+      const querySnapshot = await getDocs(collection(db, "Agrupaciones"));
+      querySnapshot.forEach(async(doc) => {
+        const imageRef = ref(storage, `AgrupacionesImages/${doc.data().imagen}`);
+        const imageUrl = await getDownloadURL(imageRef);
+        AgrupacionesData.push({
+          nombre: doc.data().nombre,
+          calificación: doc.data().calificación,
+          categorias: doc.data().categorias,
+          contacto: doc.data().contacto,
+          creacion: doc.data().creacion,
+          encargado: doc.data().encargado,
+          visión: doc.data().visión,
+          facultad: doc.data().facultad,
+          integrantes: doc.data().integrantes,
+          mision: doc.data().mision,
+          imageUrl: imageUrl
+        });
       });
-    });
-  } catch (error) {
-    console.log("Error getting documents: ", error);
+    } catch (error) {
+      console.log("Error getting documents: ", error);
+    }
+  
+    return AgrupacionesData; 
   }
 
-  return AgrupacionesData;
-}
 export async function deleteAgrupacionByName(agrupacionName) {
     const collectionRef = collection(db, 'Agrupaciones');
     const querySnapshot = await getDocs(collectionRef);
@@ -82,7 +82,29 @@ export async function deleteAgrupacionByName(agrupacionName) {
     }
   }
 
+  export async function getIntegrantesEmailsByAgrupacion(agrupacion) {
+    const { integrantes } = agrupacion;
+    const integrantesEmails = [];
+  
+    if (!integrantes || !integrantes.length) {
+      return integrantesEmails;
+    }
+  
+    try {
+      for (const integrante of integrantes) {
+        const docSnapshot = await getDoc(doc(db, "Integrantes", integrante));
+        if (docSnapshot.exists()) {
+          integrantesEmails.push(docSnapshot.data().email);
+        }
+      }
+    } catch (error) {
+      console.log("Error getting integrantes: ", error);
+    }
+  
+    return integrantesEmails;
+  }
 
+  
   export async function addAgrupacion(agrupacionData) {
     const collectionRef = collection(db, 'Agrupaciones');
   
