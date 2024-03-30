@@ -1,12 +1,16 @@
 .navbar {
     text-align: center;
-    position: fixed; /* This is the key property */
+    position: sticky; /* This is the key property */
     top: 0; /* Position the navbar at the top edge of the viewport */
     width: 100%; /* Span the entire width of the screen */
     background-color: #333; /* Example background color */
     color: #f2f2f2; /* Example text color */
     z-index: 100; /* Ensure it stays above other content */
+    
 }
+
+
+
 
 .navbar-list {
     list-style-type: none;

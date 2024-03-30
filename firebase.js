@@ -80,7 +80,29 @@ export async function deleteAgrupacionByName(agrupacionName) {
     }
   }
 
+  export async function getIntegrantesEmailsByAgrupacion(agrupacion) {
+    const { integrantes } = agrupacion;
+    const integrantesEmails = [];
+  
+    if (!integrantes || !integrantes.length) {
+      return integrantesEmails;
+    }
+  
+    try {
+      for (const integrante of integrantes) {
+        const docSnapshot = await getDoc(doc(db, "Integrantes", integrante));
+        if (docSnapshot.exists()) {
+          integrantesEmails.push(docSnapshot.data().email);
+        }
+      }
+    } catch (error) {
+      console.log("Error getting integrantes: ", error);
+    }
+  
+    return integrantesEmails;
+  }
 
+  
   export async function addAgrupacion(agrupacionData) {
     const collectionRef = collection(db, 'Agrupaciones');
   
