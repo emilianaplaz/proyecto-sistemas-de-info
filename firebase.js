@@ -50,6 +50,7 @@ export async function ArrayAgrupaciones() {
         visión: doc.data().visión,
         facultad: doc.data().facultad,
         mision: doc.data().mision,
+        integrantes: doc.data().integrantes,
         imageUrl: imageUrl
       });
     });
