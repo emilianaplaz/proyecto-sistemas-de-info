@@ -1,6 +1,4 @@
-
 import React, { useState, useEffect } from "react";
-
 import { ArrayAgrupaciones } from "../../firebase";
 
 const SearchBar = ({ searchTerm, setSearchTerm }) => {
@@ -18,17 +16,19 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
   );
 };
 
-const FilterButton = ({ selectedFilters, setSelectedFilters, setSearchTerm }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const FilterButton = ({ selectedFilters, setSelectedFilters, setSearchTerm, showFilters }) => {
+  const [isOpen, setIsOpen] = useState(showFilters);
   const resetFilter = () => {
-    setSelectedFilters([]);
     setSearchTerm("");
+    setSelectedFilters([]);
   };
-
   const toggleFilter = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    setIsOpen(showFilters);
+  }, [showFilters]);
 
   const setCategoryFilter = (category) => {
     if (selectedFilters.includes(category)) {
@@ -60,7 +60,7 @@ const FilterButton = ({ selectedFilters, setSelectedFilters, setSearchTerm }) =>
             Politica
           </button>
           <button onClick={() => setCategoryFilter("Lucha")}>Lucha</button>
-          <button onClick={resetFilter}>Regresar</button>
+          <button onClick={resetFilter}>Quitar filtros</button>
         </>
       )}
     </div>
@@ -69,22 +69,27 @@ const FilterButton = ({ selectedFilters, setSelectedFilters, setSearchTerm }) =>
 
 const Buscaragrup = () => {
   const [agrupaciones, setAgrupaciones] = useState([]);
+  const [initialAgrupaciones, setInitialAgrupaciones] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [showFilters, setShowFilters] = useState(false);
+
   const resetFilter = () => {
     setSearchTerm("");
+    setSelectedFilters([]);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await ArrayAgrupaciones();
       setAgrupaciones(data);
+      setInitialAgrupaciones(data); 
     };
 
     fetchData();
   }, []);
 
-  const filtraragrupa = agrupaciones.filter((agrupacion) => {
+  const filtraragrupa = initialAgrupaciones.filter((agrupacion) => {
     const matchedCategory =
       selectedFilters.length > 0
         ? selectedFilters.some((filter) => agrupacion.categorias.includes(filter))
@@ -96,7 +101,11 @@ const Buscaragrup = () => {
     );
   });
 
-
+ 
+  useEffect(() => {
+    setSearchTerm("");
+    setSelectedFilters([]);
+  }, []);
 
   return (
     <div>
@@ -109,16 +118,18 @@ const Buscaragrup = () => {
         selectedFilters={selectedFilters}
         setSelectedFilters={setSelectedFilters}
         setSearchTerm={setSearchTerm}
+        showFilters={showFilters}
+        setShowFilters={setShowFilters}
+        
       />
       <div>
         {filtraragrupa.map((agrupacion) => (
-          <a key={agrupacion.nombre} href={`/agrupacion`}>
-            <img src={agrupacion.imagen} alt={agrupacion.nombre} />
+          <a key={agrupacion.nombre}href={`/agrupacion/` + agrupacion.nombre}>
+            <img src={agrupacion.imageUrl} alt={agrupacion.nombre} />
             <h2>{agrupacion.nombre}</h2>
           </a>
         ))}
-      </div>
-      <button onClick={resetFilter}>Quitar Filtros</button>
+     </div>
     </div>
   );
 };

@@ -92,6 +92,16 @@ const Login = () => {
 
   }
 
+  const handleRegistrar= async (e) => {
+    e.preventDefault();
+
+    navigate("/signup")
+
+
+
+  }
+
+
   
   
   //el formulario HTML pendiente CSS y arreglar posicion navbar y validaciones del input del usuario
@@ -116,7 +126,7 @@ const Login = () => {
 
 
       <button onClick={handleRecuperacion}>Olvidaste tu contraseña</button>
-
+      <button onClick={handleRegistrar}>Registrate</button>
       
       </form>
       

@@ -35,7 +35,7 @@ const Signup = () => {
                     afiliaciones:  [],
                     correo: email,
                     teléfono: phone,
-                    tipo: "estudiante",
+                    tipo: false,
     
                 }
                 addUser(userdata);
@@ -78,7 +78,15 @@ const Signup = () => {
             }
     
         
-
+    const handleLogin= async (e) => {
+        e.preventDefault();
+    
+        navigate("/login")
+    
+    
+    
+        }
+            
     
 
 
@@ -116,7 +124,7 @@ const Signup = () => {
 
             <button onClick={handleFacebook}>Registrate con Facebook</button>
             <button onClick={handleGoogle}>Registrate con Google</button>
-
+            <button onClick={handleLogin}>Ya tienes cuenta</button>
         </form>
         
     );

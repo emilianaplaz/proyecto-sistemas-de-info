@@ -1,11 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getFirestore, doc } from "firebase/firestore";
+import { getStorage, ref } from "firebase/storage";
 import { collection, getDocs, addDoc, updateDoc, query,where} from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-
+import { getDownloadURL } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,6 +22,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 export const auth = getAuth(app);
@@ -29,34 +30,35 @@ export const storage = getStorage(app);
 
 export const googleProvider = new GoogleAuthProvider();
 
-
 export async function ArrayAgrupaciones() {
-    let AgrupacionesData = [];
+  let AgrupacionesData = [];
+  try {
   
-    try {
-      const querySnapshot = await getDocs(collection(db, "Agrupaciones"));
-      querySnapshot.forEach((doc) => {
-        AgrupacionesData.push({
-          nombre: doc.data().nombre,
-          calificación: doc.data().calificación.map((id) => parseInt(id)),
-          categorias: doc.data().categorias,
-          contacto: doc.data().contacto,
-          creacion: doc.data().creacion,
-          encargado: doc.data().encargado,
-          visión: doc.data().visión,
-          facultad: doc.data().facultad,
-          
-          mision: doc.data().mision,
-          
-        });
+    const querySnapshot = await getDocs(collection(db, "Agrupaciones"));
+    querySnapshot.forEach(async (doc) => {
+      const imageRef = ref(storage, `AgrupacionesImages/${doc.data().imagen}`);
+      
+      const imageUrl = await getDownloadURL(imageRef);
+
+      AgrupacionesData.push({
+        nombre: doc.data().nombre,
+        calificación: doc.data().calificación.map((id) => parseInt(id)),
+        categorias: doc.data().categorias,
+        contacto: doc.data().contacto,
+        creacion: doc.data().creacion,
+        encargado: doc.data().encargado,
+        visión: doc.data().visión,
+        facultad: doc.data().facultad,
+        mision: doc.data().mision,
+        imageUrl: imageUrl
       });
-    } catch (error) {
-      console.log("Error getting documents: ", error);
-    }
-  
-    return AgrupacionesData; 
+    });
+  } catch (error) {
+    console.log("Error getting documents: ", error);
   }
 
+  return AgrupacionesData;
+}
 export async function deleteAgrupacionByName(agrupacionName) {
     const collectionRef = collection(db, 'Agrupaciones');
     const querySnapshot = await getDocs(collectionRef);
@@ -80,23 +82,37 @@ export async function deleteAgrupacionByName(agrupacionName) {
   }
 
 
-export async function addAgrupacion(agrupacionData) {
+  export async function addAgrupacion(agrupacionData) {
     const collectionRef = collection(db, 'Agrupaciones');
-    try {
-      const newDocRef = await addDoc(collectionRef, {
-        nombre: agrupacionData.nombre,
-        calificación: agrupacionData.calificación,
-        categorias: agrupacionData.categorias,
-        contacto: agrupacionData.contacto,
-        creacion: agrupacionData.creacion,
-        encargado: agrupacionData.encargado,
-        visión: agrupacionData.visión,
-        facultad: agrupacionData.facultad,
-        mision: agrupacionData.mision,
-      });
-      console.log('Agrupacion added with ID: ', newDocRef.id);
-    } catch (error) {
-      console.log('Error adding agrupacion: ', error);
+  
+    const querySnapshot = await getDocs(collectionRef);
+    let agrupacionExists = false;
+    querySnapshot.forEach((doc) => {
+      if (doc.data().nombre === agrupacionData.nombre) {
+        agrupacionExists = true;
+      }
+    });
+  
+    if (!agrupacionExists) {
+      try {
+        const newDocRef = await addDoc(collectionRef, {
+          nombre: agrupacionData.nombre,
+          calificación: agrupacionData.calificación,
+          categorias: agrupacionData.categorias,
+          contacto: agrupacionData.contacto,
+          creacion: agrupacionData.creacion,
+          encargado: agrupacionData.encargado,
+          visión: agrupacionData.visión,
+          facultad: agrupacionData.facultad,
+          mision: agrupacionData.mision,
+          integrantes: agrupacionData.integrantes
+        });
+        console.log('Agrupacion added with ID: ', newDocRef.id);
+      } catch (error) {
+        console.log('Error adding agrupacion: ', error);
+      }
+    } else {
+      console.log('Agrupacion with the same name already exists.');
     }
   }
 
@@ -121,6 +137,103 @@ export async function updateAgrupacionByName(agrupacionName, updatedAgrupacionDa
       console.log('Agrupacion not found');
     }
   }
+
+  export async function addRatingToAgrupacionByName(agrupacionName, rating) {
+    const collectionRef = collection(db, 'Agrupaciones');
+    const querySnapshot = await getDocs(collectionRef);
+    let docToUpdate;
+  
+    querySnapshot.forEach((doc) => {
+      if (doc.data().nombre === agrupacionName) {
+        docToUpdate = doc.ref;
+      }
+    });
+  
+    if (docToUpdate) {
+      try {
+   
+        const agrupacionDoc = await getDoc(docToUpdate);
+        const currentCalificaciones = agrupacionDoc.data().calificación;
+  
+
+        const updatedCalificaciones = [...currentCalificaciones, rating];
+
+        await updateDoc(docToUpdate, {
+          calificación: updatedCalificaciones,
+        });
+  
+        console.log('Rating added to Agrupacion: ', agrupacionName);
+      } catch (error) {
+        console.log('Error adding rating to agrupacion: ', error);
+      }
+    } else {
+      console.log('Agrupacion not found');
+    }
+  }
+
+  export async function addIntegrantToAgrupacion(agrupacionName, integrantData) {
+    const collectionRef = collection(db, 'Agrupaciones');
+    const q = query(collectionRef, where('nombre', '==', agrupacionName));
+    const querySnapshot = await getDocs(q);
+    let docToUpdate;
+  
+    querySnapshot.forEach((doc) => {
+      docToUpdate = doc.ref;
+    });
+  
+    if (docToUpdate) {
+      try {
+        const agrupacionDoc = await getDoc(docToUpdate);
+        const currentIntegrantes = agrupacionDoc.data().integrantes || [];
+  
+        const updatedIntegrantes = [
+          ...currentIntegrantes,
+          {
+            email: integrantData.email,
+            indexAcademico: integrantData.indexAcademico,
+            trimestre: integrantData.trimestre,
+            contactNumber: integrantData.contactNumber,
+            reason: integrantData.reason,
+          },
+        ];
+  
+        await updateDoc(docToUpdate, { integrantes: updatedIntegrantes });
+        console.log('Integrant added to agrupacion');
+      } catch (error) {
+        console.log('Error adding integrant to agrupacion: ', error);
+      }
+    } else {
+      console.log('Agrupacion not found');
+    }
+  }
+
+  export async function removeIntegrantFromAgrupacion(agrupacionName, integrantEmail) {
+    const collectionRef = collection(db, 'Agrupaciones');
+    const q = query(collectionRef, where('nombre', '==', agrupacionName));
+    const querySnapshot = await getDocs(q);
+    let docToUpdate;
+  
+    querySnapshot.forEach((doc) => {
+      docToUpdate = doc.ref;
+    });
+  
+    if (docToUpdate) {
+      try {
+        const agrupacionDoc = await getDoc(docToUpdate);
+        const currentIntegrantes = agrupacionDoc.data().integrantes || [];
+  
+        const updatedIntegrantes = currentIntegrantes.filter((integrant) => integrant.email !== integrantEmail);
+  
+        await updateDoc(docToUpdate, { integrantes: updatedIntegrantes });
+        console.log('Integrant removed from agrupacion');
+      } catch (error) {
+        console.log('Error removing integrant from agrupacion: ', error);
+      }
+    } else {
+      console.log('Agrupacion not found');
+    }
+  }
+  
 
 
 export async function ArrayCategorias() {
@@ -164,15 +277,29 @@ export async function deleteCategoria(categoriaName) {
 }
       
 export async function addCategory(categoria) {
-    const collectionRef = collection(db, 'Categorias');
-    try {
-        const newDocRef = await addDoc(collectionRef, {
-        categoria: categoria
-        });
-        console.log('Category added with ID: ', newDocRef.id);
-    } catch (error) {
-        console.log('Error adding category: ', error);
+  const collectionRef = collection(db, "Categorias");
+  const lowerCaseCategoria = categoria.toLowerCase();
+  const querySnapshot = await getDocs(collectionRef);
+  let isCategoryExists = false;
+
+  querySnapshot.forEach((doc) => {
+    if (doc.data().categoria.toLowerCase() === lowerCaseCategoria) {
+      isCategoryExists = true;
     }
+  });
+
+  if (!isCategoryExists) {
+    try {
+      await addDoc(collectionRef, {
+        categoria: categoria,
+      });
+      console.log("Category added with ID: ");
+    } catch (error) {
+      console.log("Error adding category: ", error);
+    }
+  } else {
+    console.log("Category already exists: ", categoria);
+  }
 }
 
 
@@ -236,23 +363,33 @@ export async function updateUserByEmail(email, updatedUserData) {
     }
   }
 
-export async function findUserByEmail(email) {
-    const userDoc = await collection(db, 'Usuarios').where('correo', '==', email).get();
-    if (userDoc.empty) {
+  export async function findUserByEmail(email) {
+    const db = getFirestore();
+    const q = query(collection(db, 'Usuarios'), where('correo', '==', email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
       console.log('User not found');
       return null;
     }
-    const userData = userDoc.docs[0].data();
+    const userData = querySnapshot.docs[0].data();
     return userData;
   }
 
-export async function addAfiliacionByEmail(email, afiliacion) {
+  export async function addAfiliacionByEmail(email, afiliacion) {
     try {
       const q = query(collection(db, "Usuarios"), where("correo", "==", email));
       const querySnapshot = await getDocs(q);
-      const doc = querySnapshot.docs.find((doc) => doc.data().email === email);
+      const doc = querySnapshot.docs.find((doc) => doc.data().correo === email);
+  
       if (doc) {
         const currentAfiliaciones = doc.data().afiliaciones || [];
+  
+        if (currentAfiliaciones.includes(afiliacion)) {
+          console.log("Afiliacion already exists");
+          return false;
+        }
+  
+   
         const updatedAfiliaciones = [...currentAfiliaciones, afiliacion];
         await updateDoc(doc.ref, { afiliaciones: updatedAfiliaciones });
         return true;
@@ -263,25 +400,31 @@ export async function addAfiliacionByEmail(email, afiliacion) {
       console.log("Error adding afiliacion: ", error);
       return false;
     }
-}
+  }
 
-export async function deleteAffiliationByEmail(email, affiliation) {
+  export async function deleteAffiliationByEmail(email, affiliation) {
     try {
-      const querySnapshot = await getDocs(collection(db, "users"));
-      const doc = querySnapshot.docs.find((doc) => doc.data().email === email);
-      if (doc) {
+        const db = getFirestore();
+        const q = query(collection(db, 'Usuarios'), where('correo', '==', email));
+        const querySnapshot = await getDocs(q);
+        
+        if (querySnapshot.empty) {
+            console.log('User not found');
+            return false;
+        }
+        
+        const doc = querySnapshot.docs[0];
         const currentAffiliations = doc.data().afiliaciones || [];
         const updatedAffiliations = currentAffiliations.filter((member) => member !== affiliation);
+        
         await updateDoc(doc.ref, { afiliaciones: updatedAffiliations });
         return true;
-      } else {
-        return false;
-      }
     } catch (error) {
-      console.log("Error deleting affiliation: ", error);
-      return false;
+        console.log("Error deleting affiliation: ", error);
+        return false;
     }
-  }
+}
+
 
 export async function getUserAffiliations(email) {
     try {
@@ -301,30 +444,18 @@ export async function getUserAffiliations(email) {
 
   export async function findDataInCollection(collectionName, field, value) {
     try {
-      // Create a reference to the target collection
-      const collectionRef = collection(db, collectionName);
-      
-      // Construct a query to filter documents based on field and value
-      const q = query(collectionRef, where(field, '==', value));
-  
-  
-      // Get matching documents from Firestore
+      const collectionRef = collection(db, collectionName); 
+      const q = query(collectionRef, where(field, '==', value));  
       const querySnapshot = await getDocs(q);
-  
-      // Initialize an empty array to store found data
       const foundData = [];
-  
-      // Iterate through the query results
+
       querySnapshot.forEach((doc) => {
-        // Push the data from each matching document into the array
         foundData.push(doc.data());
       });
-  
-  
-      // Return the array of found data or null if no documents found
+
       return foundData.length > 0 ? foundData : null;
     } catch (error) {
       console.error('Error fetching data:', error.message);
-      return null; // Or throw an error if needed
+      return null; 
     }
   }

@@ -2,6 +2,7 @@ import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, Facebo
 import { auth, findDataInCollection } from '/firebase';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
@@ -29,20 +30,19 @@ const Recuperation = () => {
     }
     }
     return (
-        
         <div>
-            <h1>Recuperacion de contraseña:</h1>
-            <form>
-                <label htmlFor="email">Correo:</label>
-                <input value={email} onChange={(e) => setEmail(e.target.value)}/>
-
-            </form>
-            <button onClick={sendPasswordReset}>Enviar</button>
+          <h1>Recuperacion de contraseña:</h1>
+          <form>
+            <label htmlFor="email">Correo:</label>
+            <input value={email} onChange={(e) => setEmail(e.target.value)}/>
+          </form>
+          <button onClick={sendPasswordReset}>Enviar</button>
+          <br/>
+          <li><a href="login">Volver</a></li>
+         
         </div>
-    );
-};
-
-
+      );
+    };
 
 
 export default Recuperation
