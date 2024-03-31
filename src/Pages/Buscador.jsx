@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrayAgrupaciones } from "../../firebase";
 import './Buscador.css'
-
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 const SearchBar = ({ searchTerm, setSearchTerm }) => {
   return (
     <div id="Buscador">
@@ -19,6 +19,18 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
 };
 
 const FilterButton = ({ selectedFilters, setSelectedFilters, setSearchTerm, showFilters }) => {
+  const [background1, setBackground] = useState("");
+  useEffect(() => {
+    const storage = getStorage();
+    const storageRef = ref(storage, "/fondos/filtros1.png");
+    getDownloadURL(storageRef)
+      .then((url) => {
+        setBackground(url);
+      })
+      .catch((error) => {
+        console.log("Error getting image URL:", error);
+      });
+  }, []);
   const [isOpen, setIsOpen] = useState(showFilters);
   const resetFilter = () => {
     setSearchTerm("");
@@ -44,7 +56,9 @@ const FilterButton = ({ selectedFilters, setSelectedFilters, setSearchTerm, show
     
     <div>
       
-      <button id="FilterButton" onClick={toggleFilter}>
+      <button id="FilterButton" onClick={toggleFilter} style={{ 
+      backgroundImage: `url(${background1})`
+    }}>
       </button>
       <div id="Zona-filtro" style={{display: isOpen ? 'block' : 'none'}}>
       
@@ -110,6 +124,19 @@ const Buscaragrup = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
+  const [background, setBackground] = useState("");
+
+  useEffect(() => {
+    const storage = getStorage();
+    const storageRef = ref(storage, "/fondos/metropolitana.jpg");
+    getDownloadURL(storageRef)
+      .then((url) => {
+        setBackground(url);
+      })
+      .catch((error) => {
+        console.log("Error getting image URL:", error);
+      });
+  }, []);
 
   const resetFilter = () => {
     setSearchTerm("");
@@ -155,7 +182,9 @@ const Buscaragrup = () => {
   
   return (
     <div>
-    <div className="image-container">
+    <div className="image-container"style={{ 
+      backgroundImage: `url(${background})`
+    }}>
       </div>
       <div>
       <SearchBar
