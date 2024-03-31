@@ -1,15 +1,39 @@
 import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, FacebookAuthProvider} from 'firebase/auth';
 import { auth, findDataInCollection } from '/firebase';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import './Login.css'
 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  
+  const [background, setBackground] = useState("");
+  const [background1, setBackground1] = useState("");
+  useEffect(() => {
+    const storage = getStorage();
+    const storageRef = ref(storage, "/fondos/metropolitana.jpg");
+    getDownloadURL(storageRef)
+      .then((url) => {
+        setBackground(url);
+      })
+      .catch((error) => {
+        console.log("Error getting image URL:", error);
+      });
+  }, []);
+  useEffect(() => {
+    const storage = getStorage();
+    const storageRef = ref(storage, "/fondos/google-removebg-preview.png");
+    getDownloadURL(storageRef)
+      .then((url) => {
+        setBackground1(url);
+      })
+      .catch((error) => {
+        console.log("Error getting image URL:", error);
+      });
+  }, []);
 
   // Inicia el proveedor de Google y facebook
   const googleProvider = new GoogleAuthProvider();
@@ -107,27 +131,41 @@ const Login = () => {
   //el formulario HTML pendiente CSS y arreglar posicion navbar y validaciones del input del usuario
   return (
     <div>
-      <h1>Inicio de sesión</h1>
-      <button onClick={handleGoogle}>Iniciar Sesion con Google</button>
+      <div className="image-container" style={{backgroundImage: `url(${background})`}}>
+      </div>
+      <div className="logincuadrito">
+            </div>
+      <div className="text-login">
+      Inicio de sesión
+      </div>
+      <button style={{backgroundImage: `url(${background1})`}} onClick={handleGoogle}>Iniciar Sesion con Google</button>
       <button onClick={handleFacebook}>Iniciar Sesion con Facebook</button>
+      <button onClick={handleRegistrar}>Registrate</button>
+      <div className='user'>Usuario/Administrador</div>
+      
   
       
-      <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="email">Correo:</label>
-        <input value={email} onChange={(e) => setEmail(e.target.value)}/>
+      <form id='estilcuadrito' onSubmit={handleSubmit}>
+      <div className='text-content'>
+        
+        <label className="text-title" htmlFor="email">Correo:</label>
+        
+        <input className="input-content" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='example@correo.unimet.edu.ve'/>
+        
       </div>
-      <div>
-        <label htmlFor="password">Contraseña:</label>
-        <input value={password} onChange={(e) => setPassword(e.target.value)} type="password"/>
+      <div >
+        <label id='titles1'htmlFor="password">Contraseña:</label>
+        <div id='input-content1' >
+        <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Contraseña'/>
+        </div>
+      </div>
+      <div id='olvcontraseña'>
+      <button id='contraseñabot' onClick={handleRecuperacion}>Olvidaste tu contraseña</button>
       </div>
 
-      <button type="submit">enviar</button>
-
-
-      <button onClick={handleRecuperacion}>Olvidaste tu contraseña</button>
-      <button onClick={handleRegistrar}>Registrate</button>
-      
+      <div id="siguiente">
+      <button id="sigboton" type="submit">Siguiente</button>
+      </div>
       </form>
       
       
