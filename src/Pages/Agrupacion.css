@@ -1,11 +1,12 @@
 .Background {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://maduradas.com/wp-content/uploads/2021/12/Universidad-Metropolitana.jpg');
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://maduradas.com/wp-content/uploads/2021/12/Universidad-Metropolitana.jpg'); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   color: #ffffff;
   display: flex;
   justify-content: center;
+  background-color: blue;
 }
 
 .Clubpage {
