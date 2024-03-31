@@ -334,6 +334,34 @@ const Agrupacion = () => {
   </>
 )}
 
+<a href="https://www.paypal.com/donate?business=soyisabellapereira@gmail.com" target="_blank" rel="noopener noreferrer">
+  <button
+    
+    style={{
+      width: '300px',
+      height: '66px',
+      borderRadius: '50px',
+      margin: '53px',
+      fontFamily: 'Inter',
+      fontSize: '20px',
+      fontWeight: 'bold',
+      color: 'white',
+      backgroundColor: 'transparent', // Fondo transparente
+      border: 'solid 2px #FFE900', // Borde amarillo
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    Realizar donación
+    <img
+      src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png"
+      alt="Donar con PayPal"
+      style={{ marginLeft: '10px' }}
+    />
+  </button>
+</a>
+
 <div className="comments-container">
      Comentarios
         {comentarios.length > 0 ? (
