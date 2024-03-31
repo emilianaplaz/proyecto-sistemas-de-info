@@ -1,13 +1,14 @@
 #FilterButton{
-   
+    background-image: url("filtros1.png");
     background-color: transparent;
     background-size: 100% 100%;
     height: 63px;
     left: 1381px;
     opacity: 1;
     position: absolute;
-    top: 173px;
+    top: 180px;
     width: 74px;
+    border-color: #2a2828;
 }
 #Buscador{
     
@@ -309,7 +310,7 @@ top: 364px;
 width: 175px;
 }
 .boton-x {
-    z-index: 29;
+    z-index: 30;
     width: 30px;
     height: 30px;
     background-color: transparent;
@@ -318,8 +319,8 @@ width: 175px;
     font-size: 16px;
     cursor: pointer;
     position: relative;
-    left: 1465px;
-    top: -130px;
+    left: 1370px;
+    top: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -328,11 +329,13 @@ width: 175px;
     z-index: 30;
     position: relative;
     color: white;
+    left: 210px;
+    top: 180px;
 }
 .agrupacion-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 300px;
+    gap: 175px;
     --z-index: 0;
     background-color: transparent;
     cursor: pointer;
@@ -352,7 +355,7 @@ width: 175px;
     opacity: 1;
     position: relative;
     width: 600px;
-    left: 200px;
+    left: 100px;
 }
   
   
@@ -394,3 +397,15 @@ width: 175px;
   .cuadrito img {
     border-radius: 30px;
 }
+.image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('metropolitana.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    filter: brightness(45%);
+  }

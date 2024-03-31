@@ -45,7 +45,6 @@ const FilterButton = ({ selectedFilters, setSelectedFilters, setSearchTerm, show
     <div>
       
       <button id="FilterButton" onClick={toggleFilter}>
-       Filtro
       </button>
       <div id="Zona-filtro" style={{display: isOpen ? 'block' : 'none'}}>
       
@@ -156,6 +155,9 @@ const Buscaragrup = () => {
   
   return (
     <div>
+    <div className="image-container">
+      </div>
+      <div>
       <SearchBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -184,6 +186,7 @@ const Buscaragrup = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };
