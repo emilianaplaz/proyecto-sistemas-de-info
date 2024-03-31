@@ -139,9 +139,11 @@ const Signup = () => {
             </div>
             <div className='text-contents'>
                 <label className='text-title' htmlFor="phone">Telefono:</label>
-                <input className='input-content' value={phone} onChange={(e) => SetPhone(e.target.value)} type="integer"placeholder="Numero de telefono"/>
+                <input className='input-content' value={phone} onChange={(e) => SetPhone(e.target.value)} type="integer"placeholder="Número de teléfono"/>
             </div >
-            <button onClick={handleLogin}>Ya tienes cuenta</button>
+            <div id="tienescuenta">
+            <button className='sigbotons' onClick={handleLogin}>Ya tienes cuenta?</button>
+            </div>
             <div className="siguiente">
             <button className="sigboton" type="submit">Siguiente</button>
             </div>

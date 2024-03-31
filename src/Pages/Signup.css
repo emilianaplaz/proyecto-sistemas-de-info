@@ -12,7 +12,7 @@
     left: 100px;
     opacity: 1;
     position: relative;
-    top: 50px;
+    top: 100px;
     width: 1307px;
     border-color: transparent;
 }
@@ -228,7 +228,7 @@ width: 1129px;
     position: relative;
     width: 475px;
     bottom:  225px;
-    left: 50px;
+    right: 50px;
     
 }
 .siguiente{    --z-index: 6;
@@ -246,9 +246,38 @@ width: 1129px;
 }
 .sigboton{    --z-index: 0;
     background-color: transparent;
-    color: #ffffff;
+    color: white;
     font-family: 'Inter', Helvetica;
-    font-size: 30px;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.00px;
+    line-height: normal;
+    margin-top: -1.00px;
+    opacity: 1;
+    position: relative;
+    text-align: right;
+    white-space: nowrap;
+    width: fit-content;
+}
+#tienescuenta{    --z-index: 6;
+    align-items: center;
+    background-color: #a2a2a2;
+    border-radius: 20px;
+    display: inline-flex;
+    gap: 10px;
+    justify-content: center;
+    left: 880px;
+    opacity: 1;
+    padding: 10px 10px;
+    position: absolute;
+    bottom: 445px;
+    
+}
+.sigbotons{    --z-index: 0;
+    background-color: transparent;
+    color: black;
+    font-size: 20px;
     font-style: normal;
     font-weight: 700;
     letter-spacing: 0.00px;
