@@ -183,7 +183,7 @@ const Agrupacion = () => {
   }, [shouldRedirect]);
 
   return (
-
+<div className='Background'>
     <div className="Clubpage"> 
         {!isEditing && <button onClick={handleEdit}>{isEditing ? 'Save' : 'Edit'}</button>}
        {isEditing && <button onClick={saveChanges}>Save Changes</button>}
@@ -345,6 +345,7 @@ const Agrupacion = () => {
         )}
       </div>
 
+    </div>
     </div>
   );
 };
