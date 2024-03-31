@@ -1,15 +1,15 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getFirestore, query, where, getDocs, collection, addDoc, updateDoc, getDoc } from 'firebase/firestore';
+import { getFirestore, query, where, getDocs, collection, addDoc, updateDoc, getDoc, doc } from 'firebase/firestore';
 import { getAnalytics } from "firebase/analytics";
-
-import { getStorage } from "firebase/storage";
+import { getDownloadURL } from "firebase/storage";
+import { getStorage,ref } from "firebase/storage";
 
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+ 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -36,7 +36,9 @@ export async function ArrayAgrupaciones() {
   
     try {
       const querySnapshot = await getDocs(collection(db, "Agrupaciones"));
-      querySnapshot.forEach((doc) => {
+      querySnapshot.forEach(async(doc) => {
+        const imageRef = ref(storage, `AgrupacionesImages/${doc.data().imagen}`);
+        const imageUrl = await getDownloadURL(imageRef);
         AgrupacionesData.push({
           nombre: doc.data().nombre,
           calificación: doc.data().calificación,
@@ -48,7 +50,7 @@ export async function ArrayAgrupaciones() {
           facultad: doc.data().facultad,
           integrantes: doc.data().integrantes,
           mision: doc.data().mision,
-          
+          imageUrl: imageUrl
         });
       });
     } catch (error) {
@@ -102,6 +104,20 @@ export async function deleteAgrupacionByName(agrupacionName) {
     return integrantesEmails;
   }
 
+  export async function getAgrupacionesNames() {
+    const agrupacionesNames = [];
+  
+    try {
+      const querySnapshot = await getDocs(collection(db, "Agrupaciones"));
+      querySnapshot.forEach((doc) => {
+        agrupacionesNames.push(doc.data().nombre);
+      });
+    } catch (error) {
+      console.log("Error getting agrupaciones names: ", error);
+    }
+  
+    return agrupacionesNames;
+  }
   
   export async function addAgrupacion(agrupacionData) {
     const collectionRef = collection(db, 'Agrupaciones');
@@ -345,6 +361,15 @@ export async function ArrayUsuarios() {
         }
       
         return UsuariosData; 
+}
+
+export async function findUserTypeByEmail(email) {
+  const userData = await findUserByEmail(email);
+  if (userData) {
+    return userData.tipo;
+  } else {
+    return null;
+  }
 }
 
 export async function addUser(userData) {

@@ -1,15 +1,15 @@
 .navbar {
     text-align: center;
-    position: sticky; /* This is the key property */
+    position: fixed; /* This is the key property */
     top: 0; /* Position the navbar at the top edge of the viewport */
     width: 100%; /* Span the entire width of the screen */
     background-color: #333; /* Example background color */
     color: #f2f2f2; /* Example text color */
     z-index: 100; /* Ensure it stays above other content */
-    
+    height: 85px;
+    opacity: 1;
+    font-size: 25px;
 }
-
-
 
 
 .navbar-list {
@@ -20,8 +20,8 @@
 }
 
 .navbar-list li {
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 .navbar-list a {

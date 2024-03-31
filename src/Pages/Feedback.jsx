@@ -1,43 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import { ArrayAgrupaciones, addRatingToAgrupacionByName } from "../../firebase";
-import Star from '../Components/Star';
+import React, { useEffect, useState } from "react";
+import Star from "../Components/Star";
+import { getAgrupacionesNames } from "../../firebase";
 
 const Feedback = () => {
-  const [Nombresagrupaciones, setNombresagrupaciones] = useState([]);
-  const [selectedAgrupacion, setSelectedAgrupacion] = useState('');
-  const [comment, setComment] = useState('');
+  const [agrupacionNames, setAgrupacionNames] = useState([]);
+  const [selectedAgrupacion, setSelectedAgrupacion] = useState("");
+  const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
-  const [feedbackData, setFeedbackData] = useState({ rating: 0, comentario: '' });
+  const [feedbackData, setFeedbackData] = useState({ rating: 0, comment: "" });
+  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const agrupacionData = await ArrayAgrupaciones();
-
-      setNombresagrupaciones(agrupacionData.map(agrupacion => agrupacion.nombre));
+      try {
+        const agrupacionNames = await getAgrupacionesNames();
+        setAgrupacionNames(agrupacionNames);
+        setIsFetching(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
-    fetchData().catch(error => {
-      console.error('Error fetching data:', error);
-    });
+    fetchData();
   }, []);
 
   useEffect(() => {
     if (selectedAgrupacion) {
-      setComment('');
+      setComment("");
     } else {
-      setComment('');
+      setComment("");
     }
   }, [selectedAgrupacion]);
 
   useEffect(() => {
-    setFeedbackData({ rating, comentario: comment });
+    setFeedbackData({ rating, comment });
   }, [rating, comment]);
 
   const handleSubmit = async () => {
-    if (selectedAgrupacion && rating) {
-      await addRatingToAgrupacionByName(selectedAgrupacion, feedbackData);
-      window.location.href = '/buscador';
+    if (selectedAgrupacion && feedbackData.rating) {
+      // Proceed with your logic here
+      window.location.href = "/buscador";
     }
+  };
+
+  if (isFetching) {
+    return <h2>Loading...</h2>;
   }
 
   return (
@@ -49,15 +56,15 @@ const Feedback = () => {
         onChange={(e) => setSelectedAgrupacion(e.target.value)}
       >
         <option value="">Selecciona...</option>
-        {Nombresagrupaciones.map((name, index) => (
-          <option key={index} value={name}>
-            {name}
+        {agrupacionNames.map((agrupacionName, index) => (
+          <option key={index} value={agrupacionName}>
+            {agrupacionName}
           </option>
         ))}
       </select>
       <br />
 
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         {[...Array(5)].map((_, index) => (
           <Star
             key={index}
@@ -79,6 +86,6 @@ const Feedback = () => {
       <button onClick={handleSubmit}>Publicar feedback</button>
     </div>
   );
-}
+};
 
 export default Feedback;

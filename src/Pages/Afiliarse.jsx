@@ -14,7 +14,7 @@ const Afiliarse = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [EmailUser, setCurrentUserEmail] = useState("");
   const [integrantData, setIntegrantData] = useState({
-    email: '',
+    email: '', 
     indexAcademico: '',
     trimestre: '',
     contactNumber: '',

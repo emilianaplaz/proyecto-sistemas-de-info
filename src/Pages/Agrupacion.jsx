@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom';
 import './Agrupacion.css';
 import Integrante from '../Components/Integrantes';
 import { auth } from '../../firebase';
-import { deleteAffiliationByEmail, removeIntegrantFromAgrupacion, updateAgrupacionByName, getIntegrantesEmailsByAgrupacion} from '../../firebase';
+import { deleteAffiliationByEmail, removeIntegrantFromAgrupacion, updateAgrupacionByName, findUserTypeByEmail,deleteAgrupacionByName, getIntegrantesEmailsByAgrupacion} from '../../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
 const Agrupacion = () => { 
   const reloadPage = () => {
-    window.location.reload();
+    window.location.reload();    
   };
 
   const [AgrupacionesData, setAgrupaciones] = useState([]);
@@ -32,6 +32,10 @@ const Agrupacion = () => {
   const [Agrupacionintegrantes, setAgrupacionintegrantes] = useState([]);
   const [Integrantes, setIntegrantes] = useState([" "]);
 
+  const [TipoUs, setTipoUs] = useState(false);
+
+  const [isFetching, setIsFetching] = useState(true);
+
   const { id } = useParams();
   console.log(id);
 
@@ -47,33 +51,19 @@ const Agrupacion = () => {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    if (Agrupacioncalificación.length > 0) {
-      let tempComentarios = [];
-      let tempRatings = [];
+
+
+
+
   
-      for (let i = 0; i < Agrupacioncalificación.length; i++) {
-        const { comentario, rating } = Agrupacioncalificación[i];
-        if (comentario !== '') {
-          tempComentarios.push(comentario);
-        }
-        tempRatings.push(rating);
-      }
-  
-      setcomentarios(tempComentarios);
-      setratings(tempRatings);
-  
-      const sum = tempRatings.reduce((a, b) => a + b, 0);
-      const avg = sum / tempRatings.length;
-      setpuntaje(avg);
-    }
-  }, [Agrupacioncalificación]);
 
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUserEmail(user.email);
+        const tipo = await findUserTypeByEmail(emailuser); 
+        setTipoUs(tipo);
       } else {
         setCurrentUserEmail(null);
       }
@@ -94,6 +84,7 @@ const Agrupacion = () => {
         (agrupacion) => agrupacion.nombre === id
       );
       if (currentAgrupacion) {
+        
         setAgrupacionNombre(currentAgrupacion.nombre);
         setAgrupacioncalificación(currentAgrupacion.calificación);
         setAgrupacioncategorias(currentAgrupacion.categorias);
@@ -105,6 +96,7 @@ const Agrupacion = () => {
         setAgrupacionmision(currentAgrupacion.mision);
         setIntegrantes(currentAgrupacion.integrantes);
         setAgrupacionintegrantes(currentAgrupacion.integrantes);
+
         const integ = [];
         for (let i = 0; i < currentAgrupacion.integrantes.length; i++) {
           const email = currentAgrupacion.integrantes[i].email;
@@ -116,10 +108,36 @@ const Agrupacion = () => {
           }
         }
         setAgrupacionintegrantes(integ);
+        setIsFetching(false);
       }
     };
     fetchData();
+    setIsFetching(false);
   }, [id]);
+
+
+  useEffect(() => {
+    if (Agrupacioncalificación !== null && Agrupacioncalificación.length > 0) {
+      let tempComentarios = [];
+      let tempRatings = [];
+  
+      for (let i = 0; i < Agrupacioncalificación.length; i++) {
+        const { comentario, rating } = Agrupacioncalificación[i];
+        if (comentario !== '') {
+          tempComentarios.push(comentario);
+        }
+        tempRatings.push(rating);
+      }
+  
+      setcomentarios(tempComentarios); 
+      setratings(tempRatings);
+  
+      const sum = tempRatings.reduce((a, b) => a + b, 0);
+      const avg = sum / tempRatings.length;
+      setpuntaje(avg);
+    }
+  }, [Agrupacioncalificación]);
+
 
   useEffect(() => {
  
@@ -175,6 +193,8 @@ const Agrupacion = () => {
       }
     }
   };
+
+
  
   useEffect(() => {
     if (shouldRedirect) {
@@ -182,11 +202,14 @@ const Agrupacion = () => {
     }
   }, [shouldRedirect]);
 
-  return (
+  return ( 
 
     <div className="Clubpage"> 
-        {!isEditing && <button onClick={handleEdit}>{isEditing ? 'Save' : 'Edit'}</button>}
-       {isEditing && <button onClick={saveChanges}>Save Changes</button>}
+     <div className="button-container">
+        {TipoUs && <button className="edit-button" onClick={handleEdit}>{isEditing ? 'Save' : 'Edit'}</button>}
+        {/* Added the conditional statement here */}
+        {isEditing && <button className="save-button" onClick={saveChanges}>Save Changes</button>}
+      </div>
       <div className="Agrupacion-container">
         <div className="Agrupacion-name">
           <strong>Nombre:</strong>
@@ -334,16 +357,17 @@ const Agrupacion = () => {
   </>
 )}
 
-<div className="comments-container">
-     Comentarios
-        {comentarios.length > 0 ? (
-          comentarios.map((comentario, index) => (
+    <div className="comments-container">
+      Comentarios
+      {comentarios.length > 0 && (
+        <>
+          {comentarios.map((comentario, index) => (
             <p key={index}>{comentario}</p>
-          ))
-        ) : (
-          <p>No hay comentarios para esta agrupacion.</p>
-        )}
-      </div>
+          ))}
+        </>
+      )}
+      {comentarios.length === 0 && <p>No hay comentarios para esta agrupacion.</p>}
+    </div>
 
     </div>
   );

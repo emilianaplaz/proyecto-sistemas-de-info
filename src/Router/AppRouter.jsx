@@ -12,6 +12,7 @@ import Agrupacion from '../Pages/Agrupacion';
 import Recuperation from '../Pages/Recuperation';
 import Afiliarse from '../Pages/Afiliarse';
 import Feedback from '../Pages/Feedback';
+import Crearag from '../Pages/Crearagrup';
 import { NotFoundPage } from '../Pages/404NotFound/404';
 
 export const AppRouter = () => {
@@ -30,6 +31,7 @@ export const AppRouter = () => {
 				<Route path='afiliarse/:id' element={<Afiliarse />} />
 				<Route path='recuperation' element={<Recuperation />} />
 				<Route path='feedback' element={<Feedback />} />
+				<Route path='crear' element={<Crearag />} />
 				<Route path='*' element={<NotFoundPage />} />
 			</Routes>
 		</>

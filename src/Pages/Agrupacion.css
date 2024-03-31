@@ -1,12 +1,8 @@
-.Agrupacion {
-  padding-top: 60px;
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
 
 .Agrupacion-container {
+  margin-top: 10%;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 1 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -113,4 +109,19 @@
     border: 1px solid #ff7b00;
     border-radius: 4px;
     background-color: #ffffff7e;
+  }
+
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30%;
+  }
+  
+  .edit-button {
+    margin-right: 10px;
+  }
+  
+  .save-button {
+    margin-left: 10px;
   }
