@@ -138,34 +138,43 @@ const Login = () => {
       <div className="text-login">
       Inicio de sesión
       </div>
-      <button style={{backgroundImage: `url(${background1})`}} onClick={handleGoogle}>Iniciar Sesion con Google</button>
-      <button onClick={handleFacebook}>Iniciar Sesion con Facebook</button>
-      <button onClick={handleRegistrar}>Registrate</button>
+      
       <div className='user'>Usuario/Administrador</div>
       
   
       
       <form id='estilcuadrito' onSubmit={handleSubmit}>
-      <div className='text-content'>
-        
-        <label className="text-title" htmlFor="email">Correo:</label>
-        
-        <input className="input-content" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='example@correo.unimet.edu.ve'/>
-        
-      </div>
-      <div >
-        <label id='titles1'htmlFor="password">Contraseña:</label>
-        <div id='input-content1' >
-        <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Contraseña'/>
+      <div className ='info'>
+        <div className='text-content'>
+          
+            <label className="text-title" htmlFor="email">Correo:</label>
+            
+            <input className="input-content" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='example@correo.unimet.edu.ve'/>
+            
+          </div>
+          <div >
+            <div className='text-content'>
+            <label className='text-title'id='titles1'htmlFor="password">Contraseña:</label>
+            
+            <input className="input-content" value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Contraseña'/>
+            
+            </div>
         </div>
-      </div>
-      <div id='olvcontraseña'>
-      <button id='contraseñabot' onClick={handleRecuperacion}>Olvidaste tu contraseña</button>
+        <div id='olvcontraseña'>
+      <button className= 'boton_transparente'id='contraseñabot' onClick={handleRecuperacion}>Olvidaste tu contraseña</button>
       </div>
 
       <div id="siguiente">
-      <button id="sigboton" type="submit">Siguiente</button>
+      <button className= 'boton' id="sigboton" type="submit">Siguiente</button>
       </div>
+      </div>
+
+      <div className='ingreso'>
+      <button style={{backgroundImage: `url(${background1})`}} onClick={handleGoogle}>Iniciar Sesion con Google</button>
+      <button onClick={handleFacebook}>Iniciar Sesion con Facebook</button>
+      </div>
+      <button onClick={handleRegistrar}>Registrate</button>
+      
       </form>
       
       
