@@ -108,7 +108,7 @@ const Account = () => {
             {currentUserEmail && currentUserEmail} 
           </div>
           <div className="teléfono">
-            <strong>Telefono:</strong>
+            <strong>Teléfono:</strong>
             {isEditing ? (
               <input type="text" value={usertelefono} onChange={(e) => setusertelefono(e.target.value)} />
             ) : (

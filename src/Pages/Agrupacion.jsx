@@ -186,7 +186,7 @@ const Agrupacion = () => {
 <div className='Background'>
     <div className="Clubpage"> 
         {!isEditing && <button onClick={handleEdit}>{isEditing ? 'Save' : 'Edit'}</button>}
-       {isEditing && <button onClick={saveChanges}>Save Changes</button>}
+       {isEditing && <button onClick={saveChanges}>Guardar cambios</button>}
       <div className="Agrupacion-container">
         <div className="Agrupacion-name">
           <strong>Nombre:</strong>
@@ -195,7 +195,7 @@ const Agrupacion = () => {
 
         {isEditing && (
         <div className="Agrupacion-categorias">
-          <strong>Categorias:</strong>
+          <strong>Categorías:</strong>
           <div>
             {CategoriasData.map((categoria) => (
               <label key={categoria.id}>
@@ -223,7 +223,7 @@ const Agrupacion = () => {
       )}
        {!isEditing && (
           <div className="Agrupacion-categorias">
-            <strong>Categorias:</strong>
+            <strong>Categorías:</strong>
             <span>{Agrupacioncategorias.join(', ')}</span>
           </div>
         )}
@@ -254,30 +254,30 @@ const Agrupacion = () => {
         )}
       </div>
         <div className="Agrupacion-creacion">
-          <strong>creacion:</strong>
+          <strong>Creación:</strong>
           <span>{Agrupacioncreacion}</span>
         </div>
   
         <div className="Agrupacion-mision">
-            <strong>Mision:</strong>
+            <strong>Misión:</strong>
             {isEditing ? (
               <input type="text" value={Agrupacionmision} onChange={(e) => setAgrupacionmision(e.target.value)} />
             ) : (
               <span>{Agrupacionmision}</span>)}
         </div>
         <div className="Agrupacion-visión">
-            <strong>visión:</strong>
+            <strong>Visión:</strong>
             {isEditing ? (
               <input type="text" value={Agrupacionvisión} onChange={(e) => setAgrupacionvisión(e.target.value)} />
             ) : (
               <span>{Agrupacionvisión}</span>)}
         </div>
         <div className="Agrupacion-facultad">
-          <strong>facultad:</strong>
+          <strong>Facultad:</strong>
           <span>{Agrupacionfacultad}</span>
         </div>
         <div className="Agrupacion-encargado">
-          <strong>encargado:</strong>
+          <strong>Encargado:</strong>
           {isEditing ? (
             <input type="text" value={Agrupacionencargado} onChange={(e) => setAgrupacionencargado(e.target.value)} />
           ) : (
@@ -341,7 +341,7 @@ const Agrupacion = () => {
             <p key={index}>{comentario}</p>
           ))
         ) : (
-          <p>No hay comentarios para esta agrupacion.</p>
+          <p>No hay comentarios para esta agrupación.</p>
         )}
       </div>
 

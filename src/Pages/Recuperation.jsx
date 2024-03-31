@@ -31,7 +31,7 @@ const Recuperation = () => {
     }
     return (
         <div>
-          <h1>Recuperacion de contraseña:</h1>
+          <h1>Recuperación de contraseña:</h1>
           <form>
             <label htmlFor="email">Correo:</label>
             <input value={email} onChange={(e) => setEmail(e.target.value)}/>

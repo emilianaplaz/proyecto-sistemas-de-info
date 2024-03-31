@@ -46,7 +46,7 @@ const Afiliarse = () => {
       <h1>Afiliarse</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Indice Academico:
+          Índice Académico:
           <input
             type="text"
             value={integrantData.indexAcademico}
@@ -64,7 +64,7 @@ const Afiliarse = () => {
         </label>
         <br />
         <label>
-          Numero de Contacto:
+          Número de Contacto:
           <input
             type="text"
             value={integrantData.contactNumber}
@@ -73,7 +73,7 @@ const Afiliarse = () => {
         </label>
         <br />
         <label>
-          Razon de Afiliacion:
+          Razón de Afiliación:
           <textarea
             value={integrantData.reason}
             onChange={(e) => setIntegrantData({ ...integrantData, reason: e.target.value })}
@@ -82,7 +82,7 @@ const Afiliarse = () => {
 <br />
         <button type="submit">Afiliarse</button>
       </form>
-      <Link to={`/agrupacion/${id}`}>Volver a la pagina anterior</Link>
+      <Link to={`/agrupacion/${id}`}>Volver a la página anterior</Link>
     </div>
   );
 }

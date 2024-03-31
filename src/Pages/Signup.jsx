@@ -138,11 +138,11 @@ const Signup = () => {
                 <input className='contrainput' value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="contraseña"/>
             </div>
             <div className='text-contents'>
-                <label className='text-title' htmlFor="phone">Telefono:</label>
+                <label className='text-title' htmlFor="phone">Teléfono:</label>
                 <input className='input-content' value={phone} onChange={(e) => SetPhone(e.target.value)} type="integer"placeholder="Número de teléfono"/>
             </div >
             <div id="tienescuenta">
-            <button className='sigbotons' onClick={handleLogin}>Ya tienes cuenta?</button>
+            <button className='sigbotons' onClick={handleLogin}>¿Ya tienes cuenta?</button>
             </div>
             <div className="siguiente">
             <button className="sigboton" type="submit">Siguiente</button>
@@ -150,8 +150,8 @@ const Signup = () => {
             </form>
            
             <div>
-                <button id="facebook" onClick={handleFacebook}>Registrate con Facebook</button>
-                <button id="google" onClick={handleGoogle}>Registrate con Google</button>
+                <button id="facebook" onClick={handleFacebook}>Regístrate con Facebook</button>
+                <button id="google" onClick={handleGoogle}>Regístrate con Google</button>
                 </div>
         
         </div>
