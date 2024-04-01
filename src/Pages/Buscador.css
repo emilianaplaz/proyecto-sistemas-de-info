@@ -9,6 +9,8 @@
     top: 180px;
     width: 74px;
     border-color: #2a2828;
+    transform: translateX(-180px);
+
 }
 #Buscador{
     
@@ -28,6 +30,7 @@
     top: 183px;
     width: 771px;
     text-align: left;
+    transform: translateX(-180px);
 }
 #Zona-filtro{
     
@@ -354,7 +357,7 @@ width: 175px;
     height: 400px;
     opacity: 1;
     position: relative;
-    width: 600px;
+    width: 450px;
     left: 100px;
 }
   
@@ -369,7 +372,6 @@ width: 175px;
   }
   .cuadrito{
     background-color: transparent;
-    
     background-size: 100% 100%;
     height: 400px;
     left: 0px;
@@ -407,20 +409,4 @@ width: 175px;
     background-position: center;
     opacity: 0.4;
     filter: brightness(45%);
-  }
-
-
-
-  .link-button {
-    background-color: #007bff;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-right: 10px;
-    display: inline-block;
-  }
-  
-  .link-button:hover {
-    background-color: #0056b3;
   }

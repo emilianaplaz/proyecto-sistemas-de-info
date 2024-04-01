@@ -1,0 +1,11 @@
+.Todo {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://maduradas.com/wp-content/uploads/2021/12/Universidad-Metropolitana.jpg');
+    background-size: cover;
+    background-position: center;
+    background-size: 100%;
+}
+
+.Boton {
+    background-color: rgb(255, 132, 0);
+    color: #FFFFFF;
+}

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { addIntegrantToAgrupacion, addAfiliacionByEmail } from '../../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase';
+import './Afiliarse.css';
 
 
 const Afiliarse = () => {
@@ -14,7 +15,7 @@ const Afiliarse = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [EmailUser, setCurrentUserEmail] = useState("");
   const [integrantData, setIntegrantData] = useState({
-    email: '', 
+    email: '',
     indexAcademico: '',
     trimestre: '',
     contactNumber: '',
@@ -42,47 +43,49 @@ const Afiliarse = () => {
   };
 
   return (
-    <div>
-      <h1>Afiliarse</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Indice Academico:
-          <input
-            type="text"
-            value={integrantData.indexAcademico}
-            onChange={(e) => setIntegrantData({ ...integrantData, indexAcademico: e.target.value })}
-          />
-        </label>
-        <br />
-        <label>
-          Trimestre:
-          <input
-            type="text"
-            value={integrantData.trimestre}
-            onChange={(e) => setIntegrantData({ ...integrantData, trimestre: e.target.value })}
-          />
-        </label>
-        <br />
-        <label>
-          Numero de Contacto:
-          <input
-            type="text"
-            value={integrantData.contactNumber}
-            onChange={(e) => setIntegrantData({ ...integrantData, contactNumber: e.target.value })}
-          />
-        </label>
-        <br />
-        <label>
-          Razon de Afiliacion:
-          <textarea
-            value={integrantData.reason}
-            onChange={(e) => setIntegrantData({ ...integrantData, reason: e.target.value })}
-          />
-        </label>
-<br />
-        <button type="submit">Afiliarse</button>
-      </form>
-      <Link to={`/agrupacion/${id}`}>Volver a la pagina anterior</Link>
+    <div className="bg-afil">
+      <div className='afiliarse-container'>
+        <h1>Afiliarse</h1>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Índice Académico:
+            <input
+              type="text"
+              value={integrantData.indexAcademico}
+              onChange={(e) => setIntegrantData({ ...integrantData, indexAcademico: e.target.value })}
+            />
+          </label>
+          <br />
+          <label>
+            Trimestre:
+            <input
+              type="text"
+              value={integrantData.trimestre}
+              onChange={(e) => setIntegrantData({ ...integrantData, trimestre: e.target.value })}
+            />
+          </label>
+          <br />
+          <label>
+            Número de Contacto:
+            <input
+              type="text"
+              value={integrantData.contactNumber}
+              onChange={(e) => setIntegrantData({ ...integrantData, contactNumber: e.target.value })}
+            />
+          </label>
+          <br />
+          <label>
+            Razón de Afiliación:
+            <textarea
+              value={integrantData.reason}
+              onChange={(e) => setIntegrantData({ ...integrantData, reason: e.target.value })}
+            />
+          </label>
+  <br />
+          <button className='afiliarse-btn' type="submit">Afiliarse</button>
+        </form>
+        <Link to={`/agrupacion/${id}`}>Volver a la página anterior</Link>
+      </div>
     </div>
   );
 }

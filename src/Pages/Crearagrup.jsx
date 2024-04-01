@@ -14,7 +14,6 @@ const CrearAg = () => {
   const [instagram, setInstagram] = useState('');
   const [telefono, setTelefono] = useState('');
   const [imagen, setImage] = useState(null);
-  const [archivoUrl, setArchivoUrl] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const storage = getStorage();

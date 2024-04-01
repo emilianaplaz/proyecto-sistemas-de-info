@@ -26,7 +26,7 @@ const Signup02 = () => {
                 afiliaciones:  [],
                 correo: currentUser.email,
                 teléfono: phone,
-                tipo: false,
+                tipo: "estudiante",
 
             }
             addUser(userdata);
