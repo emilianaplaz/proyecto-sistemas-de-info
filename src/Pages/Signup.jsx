@@ -108,8 +108,9 @@ const Signup = () => {
     <div className="image-container" style={{backgroundImage: `url(${background})`}}>
       </div>
         <div className="registrarcuadrito">
-            </div>
-            <div className ="text-regis">Regístrate</div>
+        
+        <div className="texto-registrarse">
+        <div className ="text-regis">Regístrate</div>
         <form id="estilcuadrito" onSubmit={handleSubmit}>
             
             <div className="text-content">
@@ -144,14 +145,17 @@ const Signup = () => {
             <div id="tienescuenta">
             <button className='sigbotons' onClick={handleLogin}>¿Ya tienes cuenta?</button>
             </div>
+            
             <div className="siguiente">
             <button className="sigboton" type="submit">Siguiente</button>
             </div>
             </form>
+            </div>
            
             <div>
                 <button id="facebook" onClick={handleFacebook}>Regístrate con Facebook</button>
                 <button id="google" onClick={handleGoogle}>Regístrate con Google</button>
+                </div>
                 </div>
         
         </div>
