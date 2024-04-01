@@ -51,21 +51,15 @@
     color: #FFFFFF;
 }
 
-#estilcuadrito {
-    --z-index: 5;
-    align-items: center;
-    background-color: transparent;
+.estilcuadrito-container {
     display: flex;
-    height: 383px;
     justify-content: center;
-    left: 400px;
-    opacity: 1;
-    position: absolute;
-    top: 100px;
-    width: 400px;
-}
+    align-items: center;
+    flex-direction: column;
+    transform: translate(100px,-300px);
+  }
 
-.text-content {
+/* .text-content {
     --z-index: 0;
     background-color: transparent;
     height: 99px;
@@ -73,7 +67,7 @@
     position: relative;
     width: 475px;
     bottom: 0px;
-}
+} */
 
 .input-content {
     --z-index: 0;
@@ -109,8 +103,10 @@
 }
 
 .info{
-    display: table-column;
+    display: flex;
     font-family: 'Inter', Helvetica;
+    align-items: center;
+    justify-content: center;
 }
 
 .boton {
@@ -124,5 +120,7 @@
 }
 
 .ingreso {
-    display: inline;
+    display: flex;
+    flex-direction: row;
+    gap:10px
 }

@@ -142,7 +142,7 @@ const Login = () => {
       <div className='user'>Usuario/Administrador</div>
       
   
-      
+      <div className="estilcuadrito-container">
       <form id='estilcuadrito' onSubmit={handleSubmit}>
       <div className ='info'>
         <div className='text-content'>
@@ -177,6 +177,7 @@ const Login = () => {
       
       </form>
       
+      </div>
       
     </div>
   );
