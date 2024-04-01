@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrayAgrupaciones, addRatingToAgrupacionByName } from "../../firebase";
 import Star from '../Components/Star';
+import './Feedback.css'
 
 const Feedback = () => {
   const [Nombresagrupaciones, setNombresagrupaciones] = useState([]);
@@ -39,44 +40,45 @@ const Feedback = () => {
       window.location.href = '/buscador';
     }
   }
-
   return (
-    <div>
-      <label htmlFor="agrupacion-select">Selecciona una agrupacion:</label>
-      <select
-        id="agrupacion-select"
-        value={selectedAgrupacion}
-        onChange={(e) => setSelectedAgrupacion(e.target.value)}
-      >
-        <option value="">Selecciona...</option>
-        {Nombresagrupaciones.map((name, index) => (
-          <option key={index} value={name}>
-            {name}
-          </option>
-        ))}
-      </select>
-      <br />
+    <div className='Todo'>
+      <div className='Container'>
+        <label htmlFor="agrupacion-select">Selecciona una agrupación:</label>
+        <select
+          id="agrupacion-select"
+          value={selectedAgrupacion}
+          onChange={(e) => setSelectedAgrupacion(e.target.value)}
+        >
+          <option value="">Selecciona...</option>
+          {Nombresagrupaciones.map((name, index) => (
+            <option key={index} value={name}>
+              {name}
+            </option>
+          ))}
+        </select>
+        <br />
 
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {[...Array(5)].map((_, index) => (
-          <Star
-            key={index}
-            selected={rating > index}
-            onClick={() => setRating(index + 1)}
-          />
-        ))}
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          {[...Array(5)].map((_, index) => (
+            <Star
+              key={index}
+              selected={rating > index}
+              onClick={() => setRating(index + 1)}
+            />
+          ))}
+        </div>
+
+        <br />
+
+        <label htmlFor="comment">Comentario:</label>
+        <input
+          type="text"
+          id="comment"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+        <button className='Boton' onClick={handleSubmit}>Publicar feedback</button>
       </div>
-
-      <br />
-
-      <label htmlFor="comment">Comentario:</label>
-      <input
-        type="text"
-        id="comment"
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-      />
-      <button onClick={handleSubmit}>Publicar feedback</button>
     </div>
   );
 }

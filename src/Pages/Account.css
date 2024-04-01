@@ -1,5 +1,6 @@
 .Background {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://univnoticias.com/wp-content/uploads/2021/04/Estudiantes-de-la-UNIMET.jpg');    background-size: cover;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://univnoticias.com/wp-content/uploads/2021/04/Estudiantes-de-la-UNIMET.jpg');    
+    background-size: cover;
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
