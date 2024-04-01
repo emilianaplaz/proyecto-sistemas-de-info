@@ -1,3 +1,4 @@
+import './Account.css'
 import React, { useEffect, useState } from 'react';
 import { Navigate, useParams } from "react-router-dom";
 import Navbar from '../Components/Navbar';
@@ -40,7 +41,7 @@ const Account = () => {
   const saveChanges = async () => {
     if (!usernombre || !userapellido || !usertelefono) {
 
-      alert("No dejes ninguna informacion en blanco.");
+      alert("No dejes ninguna información en blanco.");
       return;
     }
 
@@ -84,9 +85,13 @@ const Account = () => {
   }
 
   return (
-    <div>
-      <Navbar user={currentUser} />
-      <div className="perfil">
+    <div className='Background'>
+      <div className='Cuadrito'>
+      <div className="text">
+        Cuenta
+      </div>
+        <Navbar user={currentUser} />
+        <div className="perfil">
         
         <div className="Perfil-container">
           <div className="nombre">
@@ -117,10 +122,12 @@ const Account = () => {
           </div>
         </div>
       </div> 
-      <button onClick={handleLogout}>Logout</button>
-      {!isEditing && <button onClick={handleEdit}>{isEditing ? 'Save' : 'Edit'}</button>}
-      {isEditing && <button onClick={saveChanges}>Save Changes</button>}
+      <button className='Boton' onClick={handleLogout}>Logout</button>
+      {!isEditing && <button className='Boton' onClick={handleEdit}>{isEditing ? 'Save' : 'Edit'}</button>}
+      {isEditing && <button  className='Boton' onClick={saveChanges}>Save Changes</button>}
+      </div>
     </div>
+
   );
 };
 
