@@ -1,0 +1,83 @@
+.Background {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://maduradas.com/wp-content/uploads/2021/12/Universidad-Metropolitana.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 179vh;
+  height: 100vh; 
+  margin-top: 50px;
+}
+
+.Clubpage {
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 50px;
+}
+
+
+.Agrupacion-container {
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+  background-color: #dad9d991;
+
+}
+
+.Agrupacion-name {
+  margin-bottom: 10px;
+}
+
+.Agrupacion-name strong {
+  display: inline-block;
+  width: 120px;
+  font-weight: bold;
+}
+
+.Agrupacion-categorias,
+.Agrupacion-contacto,
+.Agrupacion-creacion,
+.Agrupacion-mision,
+.Agrupacion-visión,
+.Agrupacion-facultad,
+.Agrupacion-encargado {
+  margin-bottom: 10px;
+}
+
+.Agrupacion-categorias strong,
+.Agrupacion-contacto strong,
+.Agrupacion-creacion strong,
+.Agrupacion-mision strong,
+.Agrupacion-visión strong,
+.Agrupacion-facultad strong,
+.Agrupacion-encargado strong {
+  display: inline-block;
+  width: 120px;
+  font-weight: bold;
+}
+
+.Agrupacion-categorias span,
+.Agrupacion-contacto span,
+.Agrupacion-creacion span,
+.Agrupacion-mision span,
+.Agrupacion-visión span,
+.Agrupacion-facultad span,
+.Agrupacion-encargado span {
+  margin-left: 10px;
+}
+
+.comments-container {
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid #ff7b00;
+  border-radius: 4px;
+  background-color: #ffffff7e;
+}

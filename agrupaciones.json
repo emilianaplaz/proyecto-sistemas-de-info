@@ -1,0 +1,60 @@
+{
+    "items": [
+      {
+        "name": "MetroMUN",
+        "unit_amount": {
+          "currency_code": "USD",
+          "value": "10.00"
+        }
+      },
+      {
+        "name": "Saman Film Society",
+        "unit_amount": {
+          "currency_code": "USD",
+          "value": "10.00"
+        }
+      },
+      {
+        "name": "Chem-E-Car",
+        "unit_amount": {
+          "currency_code": "USD",
+          "value": "10.00"
+        }
+      },
+      {
+        "name": "Astromet",
+        "unit_amount": {
+          "currency_code": "USD",
+          "value": "10.00"
+        }
+      },
+      {
+        "name": "Visus Unimet",
+        "unit_amount": {
+          "currency_code": "USD",
+          "value": "10.00"
+        }
+      },
+      {
+        "name": "Unimet Cheer",
+        "unit_amount": {
+          "currency_code": "USD",
+          "value": "10.00"
+        }
+      },
+      {
+        "name": "Unimet Debate",
+        "unit_amount": {
+          "currency_code": "USD",
+          "value": "10.00"
+        }
+      },
+      {
+        "name": "CAVUN",
+        "unit_amount": {
+          "currency_code": "USD",
+          "value": "10.00"
+        }
+      }
+    ]
+  }

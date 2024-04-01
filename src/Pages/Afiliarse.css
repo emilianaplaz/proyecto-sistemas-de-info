@@ -1,0 +1,64 @@
+.bg-afil{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://maduradas.com/wp-content/uploads/2021/12/Universidad-Metropolitana.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: #ffffff;
+    height: 100vh;
+    width: 180vh;
+}
+
+.afiliarse-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 50px;
+    width: 643px;
+
+  }
+
+.afiliarse-btn{
+    width: 300px;
+    height: 66px;
+    border-radius: 50px;
+    margin: 53px;
+    font-family: 'Inter';
+    font-size: 25px;
+    font-weight: bold;
+    background-color: #FD8204;
+
+}
+
+.afiliarse-btn:hover{
+    transform: scale(1.05);
+    transition: 0.5s;
+    border: solid 2px #FD8204;
+}
+
+textarea, input{
+    border-radius: 50px;
+    background-color: transparent;
+    font-family: 'Inter';
+    text-align: center;
+}
+
+label{
+    font-family: 'Inter';
+    text-align: center;
+    font-size: 25px;
+
+}
+
+
+  
+  

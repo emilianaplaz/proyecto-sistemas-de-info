@@ -1,7 +1,31 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import React, { useEffect, useState } from 'react';
+import { auth } from "../../firebase";
 
-export const PrivateRoute = ({ children }) => {
-	const { state } = useLocation();
+export function PrivateRoute({ children }) {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
 
-	return state?.logged ? children : <Navigate to='/login' />;
-};
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 500);
+      }
+      setIsLoading(false);
+    });
+    return () => unsubscribe();
+  }, []); 
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+
+  return children;
+}
