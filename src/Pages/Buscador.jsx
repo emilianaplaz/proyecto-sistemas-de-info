@@ -218,8 +218,7 @@ const Buscaragrup = () => {
      <div className="link-container" style={{ display: "flex", justifyContent: "flex-start", position: "relative", zIndex: 1000 }}>
         {TipoUs && <a href="/crear" className="link-button">
           Crear
-        </a>} 
-        {/* Added the conditional statement here */}
+        </a>}
       </div>
     <div className="image-container"style={{ 
       backgroundImage: `url(${background})`

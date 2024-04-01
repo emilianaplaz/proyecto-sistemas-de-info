@@ -18,8 +18,9 @@ const CrearAg = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const storage = getStorage();
-    const storageRef = ref(storage, `Agrupaciones/${imagen.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, imagen.name);
+    const storageRef = ref(storage, `AgrupacionesImages/${imagen.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, imagen);
+
   
     uploadTask.on(
       (error) => {
